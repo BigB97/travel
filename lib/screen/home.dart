@@ -1,3 +1,5 @@
+import 'package:ark/model/destination.dart';
+import 'package:ark/widget/destination_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,32 +72,80 @@ class _HomepageState extends State<Homepage> {
                       .toList(),
                 ),
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 40, left: 20, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Top Destinations',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        Text(
-                          'see all',
-                          style: GoogleFonts.poppins(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w300),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                ],
+              SizedBox(
+                height: 30,
               ),
+              DestinationSlide(),
+              Container(
+                height: 250,
+                width: 200,
+                color: Colors.blue,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: destinations.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Destination destination = destinations[index];
+                      return Container(
+                        margin: EdgeInsets.all(10),
+                        color: Colors.red,
+                        width: 210.0,
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 125,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '${destination.activities.length} activities',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${destination.description}',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(23),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black38,
+                                        offset: Offset(0.0, 0.2),
+                                        blurRadius: 6.0)
+                                  ]),
+                              child: Stack(
+                                children: [
+                                  Image(
+                                    height: 100,
+                                    image: AssetImage(destination.imageUrl),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
+              )
             ],
           ),
         ),
